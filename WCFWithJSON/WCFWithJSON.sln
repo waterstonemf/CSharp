@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatHappened", "WhatHappened\WhatHappened.csproj", "{BDB356ED-6A7A-4714-8655-78BA5E6D48F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatHappenedHost", "WhatHappenedHost\WhatHappenedHost.csproj", "{77CD27C3-A43C-443F-AC5D-1651BC23FCA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDB356ED-6A7A-4714-8655-78BA5E6D48F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB356ED-6A7A-4714-8655-78BA5E6D48F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB356ED-6A7A-4714-8655-78BA5E6D48F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB356ED-6A7A-4714-8655-78BA5E6D48F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77CD27C3-A43C-443F-AC5D-1651BC23FCA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77CD27C3-A43C-443F-AC5D-1651BC23FCA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77CD27C3-A43C-443F-AC5D-1651BC23FCA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77CD27C3-A43C-443F-AC5D-1651BC23FCA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
