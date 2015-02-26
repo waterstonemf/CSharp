@@ -1,0 +1,26 @@
+﻿>>>>WCFWithJSON
+1.	用WCF来实现Restful的服务，并返回和处理JSON数据
+2.	在Interface中，要使用WebInvoke 属性。 该属性要指定url的 method， 接受的数据类型，返回的数据类型，URI的模板和bodystyle
+3.	Bodystyle 要选WrappedRequest
+4.	Method 一定要全部都用大写字母
+5.	UriTemplate中可以指定或有参数
+6.	当设定request，response为JSON时，仍可以在接口中直接使用和返回复杂数据类型，如UserInfo，框架会自动在JSON和复杂类型间进行转换。只是当数据类型中有DateTime类型的参数时，要做一定的处理，否则会有问题
+7.	所有的定义最好都在Interface中定义好，class只负责实现，实现时要指定AspNetCompatibilityRequirements。关于该属性的作用， 网上给的解释如下：
+			Although the WCF model is designed to behave consistently across hosting environments and transports, there are often scenarios where an application does not require this degree of flexibility. WCF’s ASP.NET compatibility mode is suitable for scenarios that do not require the ability to host outside of IIS or to communicate over protocols other than HTTP, but that use all of features of the ASP.NET Web application platform.
+
+			Unlike the default side-by-side configuration, where the WCF hosting infrastructure intercepts WCF messages and routes them out of the HTTP pipeline, WCF services running in ASP.NET Compatibility Mode participate fully in the ASP.NET HTTP request lifecycle. In compatibility mode, WCF services use the HTTP pipeline through an IHttpHandler implementation, similar to the way requests for ASPX pages and ASMX Web services are handled. As a result, WCF behaves identically to ASMX with respect to the following ASP.NET features。
+
+			It enables ASP.NET session state
+
+			When applied to a service implementation class, this attribute indicates whether this service requires or supports ASP.NET compatibility mode to be enabled for the hosting application domain (AppDomain).
+			AppDomains hosting WCF services can run in two different hosting modes:
+			>>>>Mixed Transports Mode (Default): In this mode, WCF services do not participate in the ASP.NET HTTP pipeline. This guarantees that a WCF service behaves consistently, independent of hosting environment and transport.
+
+			>>>>ASP.NET Compatibility Mode: In this mode, WCF services participate in the ASP.NET HTTP pipeline in a manner similar to ASMX services. ASP.NET features such as File Authorization, UrlAuthorization, and HTTP Session State are applicable to WCF services running in this mode.
+
+>>>>>>>>WebApplication2
+1.	WCF With JSON 服务的web 测试程序
+2.	用ajax 来访问服务的url
+3.	用XMLHttpRequest的open，send 来发送数据
+4.	针对JSON数据，一定要显式的设定RequestHeader 的content-type为 application/json，如果不是json数据，一定不能设置该属性，否则会出现解析错误，认为json格式不对。默认的格式应该是html吧，或者默认的时候，content-type就是空，由框架自己按默认值处理
+5.	用json来表示复杂的数据类型其实就是map所有对应的属性值
