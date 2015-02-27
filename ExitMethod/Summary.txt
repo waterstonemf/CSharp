@@ -1,0 +1,29 @@
+﻿C#有两个可以让程序直接退出的方法： System.Windows.Forms.Application.Exit() 和System.Environment.Exit()
+
+按照MSDN的说法，两种方法的使用场景不太一样：一个For WinForm， 一个for Console
+>>>>Application.Exit
+
+	Informs all message pumps that they must terminate, and then closes all application windows after the messages have been processed. This is the code to use if you are have called Application.Run (WinForms applications), this method stops all running message loops on all threads and closes all windows of the application.
+
+>>>>Environment.Exit
+
+	Terminates this process and gives the underlying operating system the specified exit code. This is the code to call when you are using console application.
+
+
+You can determine if System.Windows.Forms.Application.Run has been called by checking the System.Windows.Forms.Application.MessageLoop property. If true, then Run has been called and you can assume that a WinForms application is executing as follows.
+
+if (System.Windows.Forms.Application.MessageLoop) 
+{
+    // WinForms app
+    System.Windows.Forms.Application.Exit();
+}
+else
+{
+    // Console app
+    System.Environment.Exit(1);
+}
+
+
+根据测试的结果，不管是WinForm， 还是Console， 都可以用任何一种退出方法，不会有任何错误。
+不过，对于Console程序,如果用Application.Exit,需要额外引用System.Windows.Forms.dll, 画蛇添足.还是用System.Environment.Exit 好了.
+还有一个差别就是一个有返回值,一个没有.
