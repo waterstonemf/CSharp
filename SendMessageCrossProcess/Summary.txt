@@ -1,0 +1,78 @@
+关于句柄，ID，Name，Caption，Title
+	1）不管是C++还是C#，每次重启程序后，窗口和窗口上的子控件的句柄（Handle）都是会变的
+	2）C++的Control在定义时除了一个Name 之外，如IDC_BTNADD(一个叫Add的button的Name)， 还会有一个ID值与他对应。 比如IDC_BTNADD = 1005。
+	   这个Name C#控件也有，比如txbName， 一个Textbox ，但是没有ID
+	3）控件的Name在原程序之外，比如对于windows的API来说，都是没有意义也不可见的。所以WIndows API无法通过控件的变量名来定位控件。
+	4）但是C++控件的ID值是不变的，而且通过GetWindowLong（）可以得到，所以可以通过这个特征来精确的定位到一个控件。（C#的控件当通过GetWindowLong获得ID时，发现同其Handle值是一样的）
+	5）C#的控件只能先定位某些有特殊特征的控件，比如Label控件，其Caption往往是不变的，然后再通过GetWindowNext之类的，获得其之前或者之后的控件。
+	6）Caption和Title应该是一回事。不管控件的属性是Caption还是Title，其再Windows内部应该都是一样的。Caption
+
+WindowsAPI
+	1）FindWindow 和 FindWindowByCaption 只能用来获取顶级窗口，而不能用来获取窗口上的子控件的句柄。FindWindowEx是用来获取子控件的句柄的。GetWindow 和 其宏定义的GetNextWindow用来获取一个控件的上一个或者下一个控件
+	2）EnumChildWindows有一个参数是子控件的回调函数，枚举每一个子控件并调用CallBack函数。CallBack函数的返回值是bool，为true时，继续调用下一个控件的Callback，为false时，
+	终止整个枚举过程，EnumChildWindows函数结束。这个特性在遍历查找某个特定控件时很有用。找到了就可以立即结束了。
+
+C#程序的控件的顺序是如何决定的
+	1）同控件的Tab属性没有关系，同控件添加到父控件上的顺序有关。比如lblNumber是第一个控件，之前没有控件，之后的控件是txbNumber1
+	        this.Controls.Add(this.lblNumber1);
+            this.Controls.Add(this.txbNumber1);
+            this.Controls.Add(this.lblNumber2);
+            this.Controls.Add(this.txbNumber2);
+            this.Controls.Add(this.lblResult);
+            this.Controls.Add(this.txbResult);
+            this.Controls.Add(this.rtbChildList);
+            this.Controls.Add(this.btnSum);      
+
+DLLImport
+	1）Marshal：
+		Marshalling is the act of converting data such that it can be passed and correctly analyzed between managed and unmanaged program spaces. This marshaling is performed at runtime using the CLR's marshalling service. When using P/Invoke you typically need to marshal classes and structs and control marshalling details using a number of attributes from the System.Runtime.InteropServices namespace.
+		（https://msdn.microsoft.com/en-us/library/aa719104%28v=vs.71%29.aspx#docum_topic3）
+		所以Marshal是单向的，把托管的数据结构转换为非托管程序可以识别的格式。 另一个方向角un-Marshalling， 即把非托管程序的数据结构，比如返回值，转换为托管程序可以识别的格式。
+
+	2） DLLImport需要引用System.Runtime.InteropServices;而且不仅仅能用window的API，其他所有自己开发的C++的库函数都可以用这种方式调用。当然，还有一种方式是通过C++/CLI来调用。
+	3） DLLIMport时，有时候对于同一个API函数，需要将原始类型定义为不同的托管类型，从而需要定义多个函数，这个时候可以使用DLLImport的EntryPoint属性
+	4）声明API时，Handle一般转换为IntPtr，LPARAM message的参数一般也声明为IntPtr，其他一般的指向Int的指针可以直接声明为Int，指向string指针如LPCSTR 可以声明为string或者stringbuilder，
+	Windows Data Type 					.NET Data Type 
+	BOOL, 								BOOLEAN Boolean or Int32 
+	BSTR 								String 
+	BYTE 								Byte 
+	CHAR 								Char 
+	DOUBLE 								Double 
+	DWORD/LPDWORD 						Int32 or UInt32 
+	FLOAT 								Single 
+	HANDLE (and all other handle types, such as HFONT and HMENU) 		IntPtr, UintPtr, or HandleRef 
+	HRESULT 							Int32 or UInt32 
+	INT 								Int32 
+	LANGID 								Int16 or UInt16 
+	LCID 								Int32 or UInt32 
+	LONG 								Int32 
+	LPARAM 								IntPtr, UintPtr, or Object 
+	LPCSTR 								String 
+	LPCTSTR 							String 
+	LPCWSTR 							String 
+	LPSTR 								String or StringBuilder* 
+	LPTSTR 								String or StringBuilder 
+	LPWSTR 								String or StringBuilder 
+	LPVOID 								IntPtr, UintPtr, or Object 
+	LRESULT 							IntPtr 
+	SAFEARRAY 							.NET array type 
+	SHORT 								Int16 
+	TCHAR 								Char 
+	UCHAR 								SByte 
+	UINT 								Int32 or UInt32 
+	ULONG 								Int32 or UInt32 
+	VARIANT 							Object 
+	VARIANT_BOOL 						Boolean 
+	WCHAR 								Char 
+	WORD 								Int16 or UInt16 
+	WPARAM 								IntPtr, UintPtr, or Object 
+
+Soluiton的使用：
+1）EnumOwnChildWindow： C#的程序，用来让SetValueInOtherApp来给其远程赋值（启动时会枚举自己所有的子控件，这也是它最初的目的，后来变成目标程序让SetValueInOtherApp使用）
+2）HandleInDialog		： C++程序，用来让SetValueInOtherApp来给其远程赋值
+3）SetValueInOtherApp： 给EnumOwnChildWindow或者HandleInDialog的输入框赋值，并调用其Button的click事件
+4）WINHelper			： WIN32的封装函数
+
+使用方法：
+1）同时打开EnumOwnChildWindow，HandleInDialog，SetValueInOtherApp
+2）在SetValueInOtherApp中输入相应的窗口的Caption，从而观察效果
