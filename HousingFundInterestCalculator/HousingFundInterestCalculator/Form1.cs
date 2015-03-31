@@ -28,6 +28,8 @@ namespace HousingFundInterestCalculator
         {
             ValidateInput();
 
+            Clear();
+
             //this.dgvEqualCI.Rows.Clear();
             //this.dgvEqualCapital.Rows.Clear();
 
@@ -39,6 +41,37 @@ namespace HousingFundInterestCalculator
             CalculateTotalPaid();
 
             DisplayPayInfo();
+        }
+
+
+        /*
+         * Note: 2 ways to clear datagridview.
+         * if tou use datasource to fill the grid use:     
+         * dataGridView1.DataSource=null;  
+         * dataGridView1.refresh();     
+         * 
+         * if you fill the grid programitalty use:     
+         * dataGridView1.Rows.Clear();
+         * 
+         * or you could use below block:
+         * if (this.dataGridView1.DataSource != null) {      
+         *  this.dataGridView1.DataSource = null; 
+         *  } else {     
+         *  this.dataGridView1.Rows.Clear(); 
+         * }
+         */
+        private void Clear()
+        {
+            this._equalCapitalInterestPayList.Clear();
+            this._equalCapitalPayList.Clear();
+            
+            //this.dgvEqualCapital.Rows.Clear(); this method throws exception
+            this.dgvEqualCapital.DataSource = null;
+            this.dgvEqualCapital.Refresh();
+
+            //this.dgvEqualCI.Rows.Clear();
+            this.dgvEqualCI.DataSource = null;
+            this.dgvEqualCI.Refresh();
         }
 
 
