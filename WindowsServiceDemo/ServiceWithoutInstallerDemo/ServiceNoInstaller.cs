@@ -8,23 +8,23 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsServiceDemo
+namespace ServiceWithoutInstallerDemo
 {
-    partial class Service2 : ServiceBase
+    public partial class ServiceNoInstaller : ServiceBase
     {
-        public Service2()
+        public ServiceNoInstaller()
         {
             InitializeComponent();
         }
 
         protected override void OnStart(string[] args)
         {
-            EventLogUtil.WriteLogEntry("WindowsServiceDemo_Service2", "OnStart");
+            EventLogUtil.WriteLogEntry("ServiceWithoutInstallerDemo_ServiceNoInstaller", "OnStart");
         }
 
         protected override void OnStop()
         {
-            EventLogUtil.WriteLogEntry("WindowsServiceDemo_Service2", "OnStop");
+            EventLogUtil.WriteLogEntry("ServiceWithoutInstallerDemo_ServiceNoInstaller", "OnStop");
         }
     }
 }

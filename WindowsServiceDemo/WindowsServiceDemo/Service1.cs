@@ -19,10 +19,12 @@ namespace WindowsServiceDemo
 
         protected override void OnStart(string[] args)
         {
+            EventLogUtil.WriteLogEntry("WindowsServiceDemo_Service1","OnStart");
         }
 
         protected override void OnStop()
         {
+            EventLogUtil.WriteLogEntry("WindowsServiceDemo_Service1","OnStop");
         }
     }
 }
