@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManagerDemo", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INIReadWriteDemo", "INIReadWriteDemo\INIReadWriteDemo.csproj", "{D66AF5D6-B0FD-4718-B5C2-7CFD5B20C992}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLogDemo", "EventLogDemo\EventLogDemo.csproj", "{43E505B2-B79A-4AB6-8831-E29C9163B333}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D66AF5D6-B0FD-4718-B5C2-7CFD5B20C992}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D66AF5D6-B0FD-4718-B5C2-7CFD5B20C992}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D66AF5D6-B0FD-4718-B5C2-7CFD5B20C992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E505B2-B79A-4AB6-8831-E29C9163B333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E505B2-B79A-4AB6-8831-E29C9163B333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E505B2-B79A-4AB6-8831-E29C9163B333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E505B2-B79A-4AB6-8831-E29C9163B333}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
