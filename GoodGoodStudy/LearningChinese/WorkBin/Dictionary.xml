@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ImgPath>img\</ImgPath>
+  <NormalList>
+    <string>天</string>
+    <string>地</string>
+    <string>日</string>
+    <string>月</string>
+  </NormalList>
+  <NewList>
+    <string>出入平安</string>
+    <string>好</string>
+    <string>你</string>
+    <string>山</string>
+  </NewList>
+  <!--Normal:Load Normal list
+	  New: Load New List
+  -->  
+  <LoadModel>New</LoadModel>
+</Dictionary>
