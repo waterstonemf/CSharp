@@ -12,7 +12,7 @@ namespace LearningChinese
     public partial class MainFrm : Form
     {
         Dictionary _d = null;
-        LoadModelType _loadModel = LoadModelType.Nomal;
+        LoadModelType _loadModel = LoadModelType.Normal;
         List<string> _currentList = new List<string>();
 
         public MainFrm()
@@ -122,7 +122,7 @@ namespace LearningChinese
 
                 this._d = d;
                 this._loadModel = d.LoadModel;
-                if (this._loadModel == LoadModelType.Nomal)
+                if (this._loadModel == LoadModelType.Normal)
                 {
                     this._currentList = d.NormalList;
                 }

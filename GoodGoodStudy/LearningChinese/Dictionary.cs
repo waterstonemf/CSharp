@@ -15,5 +15,5 @@ namespace LearningChinese
     }
 
 
-    public enum LoadModelType { Nomal = 0, New = 1}
+    public enum LoadModelType { Normal = 0, New = 1}
 }
