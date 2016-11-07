@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System;
 using System.Windows.Media;
+using System.Collections.Generic;
+using WpfApplication4.Model;
 
 namespace WpfApplication4
 {
@@ -13,17 +15,18 @@ namespace WpfApplication4
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Dictionary<string, TabInfo> dicTabInfo = new Dictionary<string, TabInfo>(10);
         public MainWindow()
         {
             InitializeComponent();
-            Initialize();
+            //Initialize();
         }
 
         public void Initialize()
         {
             //this.wbBaidu.ScriptErrorsSuppressed = false;
 
-            this.wbBaidu.Navigate("http://www.baidu.com");
+            this.wbBaidu.Navigate(string.Format("http://data.eastmoney.com/dxf/detail/{0}.html",txbCode.Text));
             this.wbAli.Navigate("http://www.alibaba.com");
             //this.wbGoogle.Navigate("http://Google.com");
 
@@ -39,7 +42,7 @@ namespace WpfApplication4
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
         {
-            Go();
+            //Go();
         }
 
         private void WebBrowserNavigated(object sender, NavigationEventArgs e)
@@ -72,14 +75,24 @@ namespace WpfApplication4
 
         private void WebBrowserLoadCompleted(object sender, NavigationEventArgs e)
         {
-            //WebBrowser wb = sender as WebBrowser;
-            //if(wb == null)
-            //{
-            //    throw new ArgumentNullException("No Browser passed in in WebBrowserLoadCompleted");
-            //}
+            WebBrowser wb = sender as WebBrowser;
+            if (wb == null)
+            {
+                throw new ArgumentNullException("No Browser passed in in WebBrowserLoadCompleted");
+            }
 
-            //TabItem tab = GetTabItemByBrowser(wb);
-            //tab.Background = Brushes.Green;
+            TabItem tab = GetTabItemByBrowser(wb);
+
+            TabInfo tabInfo = dicTabInfo[tab.Name];
+            if (tabInfo == null)
+            {
+                throw new NullReferenceException("tabinfo is NULL in WebBrowserLoadCompleted");
+            }else
+            {
+                tabInfo.Loaded = true;
+            }
+
+            tab.Background = Brushes.Green;
         }
 
         private TabItem GetTabItemByBrowser(WebBrowser wb)
@@ -100,6 +113,41 @@ namespace WpfApplication4
             }
 
         }
+
+        private void WebBrowserGotFocus(object sender, RoutedEventArgs e)
+        {
+            if(this.txbCode.Text == string.Empty)
+            {
+                return;
+            }
+
+            TabItem tab = sender as TabItem;
+            TabInfo tabInfo = null;
+
+            if (dicTabInfo.TryGetValue(tab.Name, out tabInfo))
+            {
+                if ((tabInfo != null) && (tabInfo.Code == this.txbCode.Text) && tabInfo.Loaded)
+                {
+                    return;
+                }
+            }
+
+            dicTabInfo[tab.Name] = new TabInfo(this.txbCode.Text, false);
+
+            NavigateTab(tab);
+
+            System.Diagnostics.Trace.TraceInformation("GetFocus" + tab.Header);
+        }
+
+        private void NavigateTab(TabItem tab)
+        {
+            if(tab.Name == "tabBaidu")
+            {
+                WebBrowser browser = wbBaidu;
+                browser.Navigate(string.Format("http://data.eastmoney.com/dxf/detail/{0}.html", txbCode.Text));
+            }
+        }
+       
     }
 } 
 
